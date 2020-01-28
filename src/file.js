@@ -5,34 +5,26 @@ const fs = require('fs');
 const event = require('./event');
 
 const read = util.promisify(fs.readFile);
-// const write = util.promisify(fs.writeFile);
+const write = util.promisify(fs.writeFile);
 
-async function readFile(file){
-  try{
-    let data = await read(file);
-    let obj = await data.toString();
-    event.emit('readFile', obj);
-    return obj;
-  }
-  catch(error){
-    event.emit('Error', error);
-  }
+function readFile(file){
+  return read(file)
+    .then(results => {
+      event.emit('read', `Read file`);
+      return results.toString().toUpperCase();    
+    }).catch(error => event.emit('error', error));  
+}
+function writeFile(data, file){
+  const buffer = Buffer.from(data);
+  console.log(buffer);
+  return write(buffer, file)
+    .then(results => {
+      event.emit('success', 'Process was successful');
+    });
 }
 
-async function writeFile(file, string){
-  try{
-    const upString = string.toUpperCase();
-    fs.writeFile(file, upString.toString(), (error => {
-      if(error){event.emit('Error', error);}
-      event.emit('writeFile', 'successfully wrote file');
-    }));
-  }
-  catch(error){
-    event.emit('Error', error);
-  }
-}
 
-module.exports = {readFile, writeFile};
+module.exports = readFile, writeFile;
 
 
 
