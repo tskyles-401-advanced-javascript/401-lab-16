@@ -14,3 +14,5 @@ function log(event, payload){
   let time = new Date();
   console.log({event, time, payload});
 }
+
+module.exports = log;
