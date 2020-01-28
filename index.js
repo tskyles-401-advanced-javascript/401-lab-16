@@ -8,12 +8,18 @@ require('./src/logger');
 
 let argv = process.argv;
 let file = `${__dirname}/src/${argv[2]}`;
-console.log('path', file);
+/**
+ *  reads and writes files
+ *  @function editFile
+ */
+const editFile = () => {
+  readFile(file)
+    .then(results => {
+      console.log(results);
+      writeFile(file, results);
+    })
+    .catch(error => event.emit('error', error));
+};
 
-readFile(file)
-  .then(results => {
-    console.log(results);
-    writeFile(file, results);
-  })
-  .catch(error => event.emit('error', error));
+editFile();
 

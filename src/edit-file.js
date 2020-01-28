@@ -7,9 +7,12 @@ const event = require('./event');
 const read = util.promisify(fs.readFile);
 const write = util.promisify(fs.writeFile);
 
-// let argv = process.argv;
-// let file = `${__dirname}/testfile.md`;
-
+/**
+ *
+ *
+ * @param {*} file
+ * @returns data as string
+ */
 function readFile(file){
   return read(file)
     .then(results => {
@@ -17,14 +20,21 @@ function readFile(file){
       return results.toString().toUpperCase();    
     }).catch(error => event.emit('error', error));  
 }
+/**
+ *
+ *
+ * @param {*} file
+ * @param {*} data
+ */
 function writeFile(file, data){
   return write(file, data)
     .then(results => {
       event.emit('writeFile', 'Process was successful');
     }).catch(error => event.emit('error', error));
 }
-
-// writeFile(file, 'HelloWorld');
+/** 
+ * @module read/writeFile
+*/
 module.exports = {readFile, writeFile};
 
 
