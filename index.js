@@ -1,7 +1,7 @@
 'use strict';
 
-const {readFile} = require('./src/file');
-const {writeFile} = require('./src/file');
+const {readFile} = require('./src/edit-file');
+const {writeFile} = require('./src/edit-file');
 const event = require('./src/event');
 
 require('./src/logger');
