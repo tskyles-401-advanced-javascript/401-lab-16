@@ -9,7 +9,7 @@ const read = util.promisify(fs.readFile);
 
 async function readFile(file){
   try{
-    let data = read(file);
+    let data = await read(file);
     let obj = await data.toString();
     event.emit('readFile', obj);
     return obj;
