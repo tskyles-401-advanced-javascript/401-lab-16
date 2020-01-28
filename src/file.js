@@ -13,14 +13,14 @@ const write = util.promisify(fs.writeFile);
 function readFile(file){
   return read(file)
     .then(results => {
-      event.emit('read', `Read file`);
+      event.emit('readFile', `file has been read`);
       return results.toString().toUpperCase();    
     }).catch(error => event.emit('error', error));  
 }
 function writeFile(file, data){
   return write(file, data)
     .then(results => {
-      event.emit('success', 'Process was successful');
+      event.emit('writeFile', 'Process was successful');
     }).catch(error => event.emit('error', error));
 }
 
